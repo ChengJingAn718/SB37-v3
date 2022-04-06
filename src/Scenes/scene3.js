@@ -114,7 +114,7 @@ export default function Scene({ _geo, nextFunc, _baseGeo, gameNumber }) {
             isRendered = true;
         }, 2000);
 
-        
+        baseObject.current.style.pointerEvents = 'none'
 
         audioList.bodyAudio1.src = returnAudioPath('12')
         setRepeatAudio(audioList.repeatAudio)
@@ -126,19 +126,17 @@ export default function Scene({ _geo, nextFunc, _baseGeo, gameNumber }) {
             audioList.bodyAudio1.play().catch(error => { });
             startRepeatAudio();
             timerList[1] = setTimeout(() => {
-                audioList.repeatAudio.play();
+                audioList.repeatAudio.play()
+                timerList[2] = setTimeout(() => {
+                    baseObject.current.style.pointerEvents = ''
+                }, audioList.repeatAudio.duration * 1000);
             }, audioList.bodyAudio1.duration * 1000);
 
         }, 1500);
 
-
-
         environmentList.map(env => {
             env.current.setClass('hideObject')
         })
-
-
-
 
         stepCount = 0
         imageCount = 0;
